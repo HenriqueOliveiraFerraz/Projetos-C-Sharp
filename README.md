@@ -108,3 +108,144 @@ namespace VetorClasse
 
 
 ```
+## 2.Lista e Classe
+
+Fazer um programa para ler um número inteiro N e depois os dados (id, nome e salario) de
+N funcionários. Não deve haver repetição de id.
+Em seguida, efetuar o aumento de X por cento no salário de um determinado funcionário.
+Para isso, o programa deve ler um id e o valor X. Se o id informado não existir, mostrar uma
+mensagem e abortar a operação. Ao final, mostrar a listagem atualizada dos funcionários,
+conforme exemplos.
+Lembre-se de aplicar a técnica de encapsulamento para não permitir que o salário possa
+ser mudado livremente. Um salário só pode ser aumentado com base em uma operação de
+aumento por porcentagem dada.
+
+```
+How many employees will be registered? 3
+Emplyoee #1:
+Id: 333
+Name: Maria Brown
+Salary: 4000.00
+Emplyoee #2:
+Id: 536
+Name: Alex Grey
+Salary: 3000.00
+Emplyoee #3:
+Id: 772
+Name: Bob Green
+Salary: 5000.00
+Enter the employee id that will have salary increase : 536
+Enter the percentage: 10.0
+Updated list of employees:
+333, Maria Brown, 4000.00
+536, Alex Grey, 3300.00
+772, Bob Green, 5000.00
+```
+```
+How many employees will be registered? 2
+Emplyoee #1:
+Id: 333
+Name: Maria Brown
+Salary: 4000.00
+Emplyoee #2:
+Id: 536
+Name: Alex Grey
+Salary: 3000.00
+Enter the employee id that will have salary increase: 776
+This id does not exist!
+Updated list of employees:
+333, Maria Brown, 4000.00
+536, Alex Grey, 3000.00
+```
+```c#
+using System;
+using System.Globalization;
+
+
+namespace ListaFuncionarios
+{
+    class Funcionario
+    {
+        public int ID { get; set; }
+        public string Nome { get; set; }
+        public double Salario { get; set; }
+
+        public Funcionario(int id, string nome, double salario)
+        {
+            ID = id;
+            Nome = nome;
+            Salario = salario;
+        }
+
+        public void AumentarSalario(double porcentagem)
+        {
+            Salario += (porcentagem*Salario)/100;
+        }
+
+        public override string ToString()
+        {
+            return ID
+                + ", "
+                + Nome
+                + ", "
+                + Salario.ToString("F2", CultureInfo.InvariantCulture);
+        }
+    }
+}
+
+```
+```c#
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+namespace ListaFuncionarios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Quantos funcionários serão registrados? ");
+            int n = int.Parse(Console.ReadLine());
+            List<Funcionario> lista = new List<Funcionario>();
+
+            for (int i = 1; i <= n; i++)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Funcionário  #{i}:");
+                Console.WriteLine("ID: ");
+                int id = int.Parse(Console.ReadLine());
+                Console.WriteLine("Nome: ");
+                string nome = Console.ReadLine();
+                Console.WriteLine("Salário: ");
+                double salario = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                lista.Add(new Funcionario(id, nome, salario));
+            }
+
+            Console.WriteLine("Insira  o ID do funcionário que ira receber aumento: ");
+            int funcionarioID = int.Parse(Console.ReadLine());
+
+            Funcionario temp = lista.Find(x => x.ID == funcionarioID);
+            if(temp != null)
+            {
+                Console.WriteLine("Insira a porcentagem do aumento: ");
+                double aumento = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                temp.AumentarSalario(aumento);
+            }
+            else
+            {
+                Console.WriteLine("Esse ID não existe");
+            }
+
+            Console.WriteLine("-----------------");
+            Console.WriteLine("Lista atualizada dos funcionários: ");
+            foreach(Funcionario obj in lista)
+            {
+                Console.WriteLine(obj);
+            }
+
+        }
+    }
+}
+
+```
