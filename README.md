@@ -108,7 +108,8 @@ namespace VetorClasse
 
 
 ```
-```
+## 2.Lista e Classe
+
 Fazer um programa para ler um número inteiro N e depois os dados (id, nome e salario) de
 N funcionários. Não deve haver repetição de id.
 Em seguida, efetuar o aumento de X por cento no salário de um determinado funcionário.
@@ -118,7 +119,7 @@ conforme exemplos.
 Lembre-se de aplicar a técnica de encapsulamento para não permitir que o salário possa
 ser mudado livremente. Um salário só pode ser aumentado com base em uma operação de
 aumento por porcentagem dada.
-```
+
 ```
 How many employees will be registered? 3
 Emplyoee #1:
